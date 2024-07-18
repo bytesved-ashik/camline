@@ -1,0 +1,17 @@
+export enum QueryKeyString {
+  WALLET_DATA = "wallets.data",
+  REGISTER_QUESTIONS_DATA = "register.questions.data",
+  CHAT_MESSAGE_DATA = "chat.message.data",
+  CHAT_LIST_DATA = "chat.list.data",
+  SCHEDULE_SESSIONS_DATA = "schedule.sessions.data",
+  SESSION_DATA = "session.data",
+  SESSION_HISTORY_DATA = "session.history.data",
+  REQUEST_IN_POOL_DATA = "requests.in.pool.data",
+  USER_QUERIES_DATA = "user.queries.data",
+  SESSION_UPCOMING_DATA = "session.upcoming.data",
+  USER_INFO = "user.info",
+  TRANSACTION_HISTORY_DATA = "transaction.history.data",
+  MATCHING_QUERIES_REQUESTS = "matching.queries.requests",
+  SCHEDULED_QUERIES_REQUESTS = "scheduled.queries.requests",
+  SCHEDULED_SESSION_HISTORY = "scheduled.session.history",
+}

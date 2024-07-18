@@ -1,0 +1,16 @@
+.toastError,
+.toastSuccess {
+  color: white !important;
+  padding: 15px 20px !important;
+  border-radius: 10px !important;
+}
+.toastError {
+  background-color: #f44336 !important;
+}
+
+.toastSuccess {
+  background-color: #66bb6a !important;
+}
+.icon {
+  color: white;
+}

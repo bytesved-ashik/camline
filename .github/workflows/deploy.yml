@@ -1,0 +1,50 @@
+name: deploy_prod_with_pm2
+
+on:
+  push:
+    branches:
+      - investment
+  pull_request:
+    branches:
+      - investment
+
+jobs:
+  deploy_application:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: "18.14.2"
+
+      - name: Verify Node.js version
+        run: node --version
+
+      # Deployment script using PM2
+      - name: Deploy application with PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+            nvm use 18.14.2
+            # Navigate to the application directory
+            cd /var/www/html/dashboard
+            # Pull latest changes
+            git pull origin investment
+            # Install PM2 globally if it's not already installed
+            npm install pm2@latest -g
+            # Install project dependencies
+            yarn install
+            # Build the project if necessary
+            yarn build
+            export PM2_HOME="/root/.pm2"
+            pm2 restart frontend
